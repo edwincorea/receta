@@ -37,6 +37,10 @@ describe "RecipesController", ->
       it 'defaults to no recipes', ->
         expect(scope.recipes).toEqualData([])
 
+      afterEach ->
+        httpBackend.verifyNoOutstandingExpectation()
+        httpBackend.verifyNoOutstandingRequest()
+
     describe 'with keywords', ->
       keywords = 'foo'
       recipes = [
@@ -57,6 +61,10 @@ describe "RecipesController", ->
       it 'calls the back-end', ->
         expect(scope.recipes).toEqualData(recipes)
 
+      afterEach ->
+        httpBackend.verifyNoOutstandingExpectation()
+        httpBackend.verifyNoOutstandingRequest()
+
   describe 'search()', ->
     beforeEach ->
       setupController()
@@ -67,6 +75,6 @@ describe "RecipesController", ->
       expect(location.path()).toBe('/')
       expect(location.search()).toEqualData({keywords: keywords})
 
-  afterEach ->
-    httpBackend.verifyNoOutstandingExpectation()
-    httpBackend.verifyNoOutstandingRequest()
+    afterEach ->
+      httpBackend.verifyNoOutstandingExpectation()
+      httpBackend.verifyNoOutstandingRequest()
