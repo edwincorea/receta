@@ -34,19 +34,20 @@ describe "RecipeController", ->
 
   beforeEach(module("receta"))
 
-  afterEach ->
-    httpBackend.verifyNoOutstandingExpectation()
-    httpBackend.verifyNoOutstandingRequest()
-
   describe 'controller initialization', ->
     describe 'recipe is found', ->
       beforeEach(setupController())
       it 'loads the given recipe', ->
         httpBackend.flush()
         expect(scope.recipe).toEqualData(fakeRecipe)
+
     describe 'recipe is not found', ->
       beforeEach(setupController(false))
       it 'loads the given recipe', ->
         httpBackend.flush()
         expect(scope.recipe).toBe(null)
         expect(flash.error).toBe("There is no recipe with ID #{recipeId}")
+
+  afterEach ->
+    httpBackend.verifyNoOutstandingExpectation()
+    httpBackend.verifyNoOutstandingRequest()
